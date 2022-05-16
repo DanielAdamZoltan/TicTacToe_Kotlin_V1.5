@@ -1,20 +1,22 @@
 package danielAdamZoltan
 
+import Games
 import io.ktor.application.*
 import io.ktor.features.*
-import io.ktor.html.respondHtml
+import io.ktor.html.*
 import io.ktor.http.*
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.http.content.resources
 import io.ktor.http.content.static
 import io.ktor.network.sockets.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import kotlinx.html.*
-import kotlinx.html.dom.document
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.Table.Dual.nullable
 import org.jetbrains.exposed.sql.javatime.CurrentDateTime
 import org.jetbrains.exposed.sql.javatime.datetime
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -41,31 +43,26 @@ fun HTML.index() {
 object Steps : Table() {
     val id = integer("id")
     val step = varchar("step", 1)
-    val dateCreated = datetime("date_created").defaultExpression(CurrentDateTime())
-    val gameId = (integer("game_id") references Games.id).nullable()
-
+    val gameId = (integer("game_id") references danielAdamZoltan.Games.id).nullable()
     override val primaryKey = PrimaryKey(id, name = "PK_Steps_ID")
 }
 
 object Games : Table(){
     val id = integer("id").autoIncrement()
-    val winner = varchar("winner", 50)
+    val winner = varchar("winner", 1)
+    val dateCreated = datetime("date_created").defaultExpression(CurrentDateTime())
 
     override val primaryKey = PrimaryKey(id, name = "PK_Games_ID")
 }
 
-
-
-
-
 fun main() {
 
-    Database.connect("jdbc:mysql://localhost:3306/tic_tac_toe", user = username, password = password)
-
+   val conn = Database.connect("jdbc:mysql://localhost:3306/tic_tac_toe", user = username, password = password)
     transaction {
         addLogger(StdOutSqlLogger)
 
-        SchemaUtils.create(Games, Steps)
+        SchemaUtils.create(Steps, danielAdamZoltan.Games)
+
     }
 
     embeddedServer(Netty, port = 8080, host = "127.0.0.1") {
@@ -88,6 +85,21 @@ fun main() {
             static("/static") {
                 resources()
             }
+//            route(Games.path) {
+//                get {
+//                    for ()
+//                }
+//                post {
+//                    transaction {
+//                        Steps.insert{
+//                            it[id] = danielAdamZoltan.Games.id
+//                            it[step] = call.
+//
+//                        }
+//                    }
+//
+//                }
+//            }
         }
     }.start(wait = true)
     println("A játék elindult!")
