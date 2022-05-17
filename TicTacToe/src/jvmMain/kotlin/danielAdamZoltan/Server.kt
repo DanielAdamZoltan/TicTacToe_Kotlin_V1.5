@@ -1,6 +1,5 @@
 package danielAdamZoltan
 
-import Games
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.html.*
@@ -10,13 +9,10 @@ import io.ktor.server.netty.Netty
 import io.ktor.http.content.resources
 import io.ktor.http.content.static
 import io.ktor.network.sockets.*
-import io.ktor.request.*
-import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import kotlinx.html.*
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.Table.Dual.nullable
 import org.jetbrains.exposed.sql.javatime.CurrentDateTime
 import org.jetbrains.exposed.sql.javatime.datetime
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -40,6 +36,7 @@ fun HTML.index() {
 }
 
 
+// Create Table Steps
 object Steps : Table() {
     val id = integer("id")
     val step = varchar("step", 1)
@@ -47,6 +44,7 @@ object Steps : Table() {
     override val primaryKey = PrimaryKey(id, name = "PK_Steps_ID")
 }
 
+//Create Table Games
 object Games : Table(){
     val id = integer("id").autoIncrement()
     val winner = varchar("winner", 1)

@@ -21,6 +21,7 @@ external interface IndexProps : Props {
     var name: String
 }
 
+//Check winner if button pressed
 fun check() {
     console.log("check Müködik")
 
@@ -249,6 +250,7 @@ val b9 = document.getElementById("b9") as HTMLInputElement
 
 }
 
+//Reset the game
 fun reset() {
     console.log("reset")
     document.location?.reload()
@@ -285,8 +287,10 @@ val b9 = document.getElementById("b9") as HTMLInputElement
     actualPlayer = 1;
 }
 
-
+//Variable what use to which player is the next player
 var actualPlayer = 1;
+
+//Check First Input which player is clicked the input field
 fun checkButtonOne() {
     console.log("Button 1 fun")
     val b1 = document.getElementById("b1") as HTMLInputElement
@@ -302,6 +306,7 @@ fun checkButtonOne() {
     b1.disabled = true
 }
 
+//Check Second Input which player is clicked the input field
 fun checkButtonTwo() {
     console.log("Button 2 fun")
     val b2 = document.getElementById("b2") as HTMLInputElement
@@ -317,6 +322,7 @@ fun checkButtonTwo() {
     b2.disabled = true
 }
 
+//Check Third Input which player is clicked the input field
 fun checkButtonThree() {
     console.log("Button 3 fun")
     val b3 = document.getElementById("b3") as HTMLInputElement
@@ -332,6 +338,7 @@ fun checkButtonThree() {
     b3.disabled = true
 }
 
+//Check Fourth Input which player is clicked the input field
 fun checkButtonFour() {
     console.log("Button 4 fun")
     val b4 = document.getElementById("b4") as HTMLInputElement
@@ -347,6 +354,7 @@ fun checkButtonFour() {
     b4.disabled = true
 }
 
+//Check Fifth Input which player is clicked the input field
 fun checkButtonFive() {
     console.log("Button 5 fun")
     val b5 = document.getElementById("b5") as HTMLInputElement
@@ -362,6 +370,7 @@ fun checkButtonFive() {
     b5.disabled = true
 }
 
+//Check Sixth Input which player is clicked the input field
 fun checkButtonSix() {
     console.log("Button 6 fun")
     val b6 = document.getElementById("b6") as HTMLInputElement
@@ -377,6 +386,7 @@ fun checkButtonSix() {
     b6.disabled=true
 }
 
+//Check Seventh Input which player is clicked the input field
 fun checkButtonSeven() {
     console.log("Button 7 fun")
     val b7 = document.getElementById("b7") as HTMLInputElement
@@ -392,6 +402,7 @@ fun checkButtonSeven() {
     b7.disabled=true
 }
 
+//Check Eighth Input which player is clicked the input field
 fun checkButtonEight() {
     console.log("Button 8 fun")
     val b8 = document.getElementById("b8") as HTMLInputElement
@@ -407,6 +418,7 @@ fun checkButtonEight() {
     b8.disabled=true
 }
 
+//Check Ninth Input which player is clicked the input field
 fun checkButtonNine() {
     console.log("Button 9 fun")
     val b9 = document.getElementById("b9") as HTMLInputElement
@@ -429,15 +441,6 @@ val Index = FC<IndexProps> { props ->
     var game by useState(emptyList<Games>())
     var step by useState(emptyList<Steps>())
 
-//    useEffectOnce {
-//        scope.launch {
-//            game = getGame()
-//            step = getStep()
-//        }
-//    }
-
-
-
     div {
         css {
             padding = 5.px
@@ -459,7 +462,7 @@ val Index = FC<IndexProps> { props ->
         p{
             +" a második pedig 0 játékosként"
         }
-        
+
 
         css { height = 100.px }
     }
@@ -496,7 +499,6 @@ val Index = FC<IndexProps> { props ->
                     onClick = {
                         checkButtonOne()
                         check()
-//                        getId()
                     }
                     readOnly = true
 
@@ -718,12 +720,4 @@ val Index = FC<IndexProps> { props ->
         }
     }
 
-//    InputComponent {
-//        onSubmit = {
-//            input -> val step = Steps(1, )
-//            scope.launch {
-//                addStep(step)
-//            }
-//        }
-//    }
 }
